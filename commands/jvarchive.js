@@ -4,7 +4,7 @@ const axios = require('axios');
 module.exports = {
 	data: new SlashCommandBuilder()
 	.setName('jvarchive')
-	.setDescription('Plus gros topics supprimés de l\'heure'),
+	.setDescription('10 plus gros topics supprimés de l\'heure'),
 	async execute(interaction) {
 		var res = await axios.request({
 			url: '/topics',
@@ -18,11 +18,39 @@ module.exports = {
 			},
 			timeout: 1000
 		});
-		s = "";
+		s = '';
+		var i = 0;
 		for (let topic of res.data.items) {
-			s += `${topic.titre} | ${topic.nb_messages}\n`;
+			i++;
+			titreUrl = topic.titre
+				.toLowerCase()
+				.replaceAll("'","")
+				.replaceAll("«","")
+				.replaceAll("»","")
+				.replaceAll("/","")
+				.replaceAll(":","")
+				.replaceAll("é","e")
+				.replaceAll("è","e")
+				.replaceAll("[","")
+				.replaceAll("]","")
+				.replaceAll("&","and")
+				.replaceAll("\"","")
+				.replaceAll("\\","")
+				.replaceAll(",","")
+				.replaceAll("?","")
+				.replaceAll("  "," ")
+				.replaceAll("  "," ")
+				.replaceAll("  "," ")
+				.replaceAll(" ","-")
+				.replace(/^-/g,"")
+			if(/[A-Za-z0-9-]+/.test(titreUrl)) {
+				url = `https://jvarchive.com/forums/42-51-${topic.id}-1-0-1-0-${titreUrl}`
+				s += `[${topic.titre}](${url}) | ${topic.nb_messages}\n`;
+			} else {
+				console.log(titreUrl);
+			}
+			if (i >=10) break;
 		}
-		console.log(s);
 		interaction.reply(s);
 	}
 };
