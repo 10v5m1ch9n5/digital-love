@@ -12,6 +12,7 @@ module.exports = {
 			baseURL: 'https://jvarchive.com/api',
 			headers: {'accept': 'application/json'},
 			params: {
+				itemsPerPage: 10,
 				orderBy: "nb_messages",
 				topicState: "deleted",
 				timeInterval: "hour"
@@ -19,9 +20,7 @@ module.exports = {
 			timeout: 1000
 		});
 		s = '';
-		var i = 0;
 		for (let topic of res.data.items) {
-			i++;
 			titreUrl = topic.titre
 				.toLowerCase()
 				.replaceAll("'","")
@@ -49,7 +48,6 @@ module.exports = {
 			} else {
 				console.log(titreUrl);
 			}
-			if (i >=10) break;
 		}
 		interaction.reply(s);
 	}
