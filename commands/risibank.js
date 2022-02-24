@@ -1,7 +1,7 @@
 const { risibankAPI } = require('./../axios-instances.js');
 
 module.exports = {
-	command: async (channel, argv) => {
+	command: async (message, argv) => {
 		const res = await risibankAPI.request({
 			url: '/medias/search',
 			params: {
@@ -12,10 +12,9 @@ module.exports = {
 		});
 		const media = res.data.medias;
 		if (media.length === 0) {
-			channel.send('Aucun résultat :(');
+			message.channel.send('Aucun résultat :(');
 		} else {
-			console.log(res.data);
-			channel.send(media[0].source_url);
+			message.channel.send(media[0].source_url);
 		}
 	}
 };

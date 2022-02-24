@@ -1,5 +1,5 @@
 module.exports = {
-	command: (channel, argv) => {
+	command: (message, argv) => {
 		let sum = 0;
 		for (const arg of argv) {
 			const k = Number(arg);
@@ -7,6 +7,6 @@ module.exports = {
 				sum += k;
 			}
 		}
-		channel.send(`somme = \`${sum}\``);
+		message.channel.send(`somme = \`${sum}\``);
 	}
 };

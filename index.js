@@ -2,7 +2,11 @@ const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
 const { token } = require('./config.json');
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+const client = new Client({ intents: [
+	Intents.FLAGS.GUILDS,
+	Intents.FLAGS.GUILD_MESSAGES,
+	Intents.FLAGS.GUILD_VOICE_STATES
+] });
 
 client.commands = new Collection();
 const slashCommandFiles = fs.readdirSync('./slash_commands').filter(file => file.endsWith('.js'));
@@ -44,7 +48,7 @@ client.on('messageCreate', (message) => {
 	for (const file of commandFiles) {
 		if(file.startsWith(cmd)) {
 			const { command } = require(`./commands/${cmd}.js`);
-			command(message.channel, argv);
+			command(message, argv);
 		}
 	}
 });

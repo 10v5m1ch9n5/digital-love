@@ -1,5 +1,5 @@
 module.exports = {
-	command: (channel) => {
-		channel.send('pong!');
+	command: (message) => {
+		message.channel.send('pong!');
 	}
 };
