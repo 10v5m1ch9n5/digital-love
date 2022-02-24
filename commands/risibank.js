@@ -1,4 +1,4 @@
-const { risibankAPI } = require('./axios-instances.js');
+const { risibankAPI } = require('./../axios-instances.js');
 
 module.exports = {
 	command: async (channel, argv) => {

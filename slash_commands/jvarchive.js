@@ -1,23 +1,19 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const axios = require('axios');
+const { jvarchiveAPI } = require('./../axios-instances.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
 	.setName('jvarchive')
 	.setDescription('10 plus gros topics supprimés de l\'heure'),
 	async execute(interaction) {
-		var res = await axios.request({
+		var res = await jvarchiveAPI.request({
 			url: '/topics',
-			method: 'get',
-			baseURL: 'https://jvarchive.com/api',
-			headers: {'accept': 'application/json'},
 			params: {
 				itemsPerPage: 10,
 				orderBy: "nb_messages",
 				topicState: "deleted",
 				timeInterval: "hour"
-			},
-			timeout: 1000
+			}
 		});
 		s = '';
 		for (let topic of res.data.items) {

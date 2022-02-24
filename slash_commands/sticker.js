@@ -1,16 +1,13 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const axios = require('axios');
+const { risibankAPI } = require('./../axios-instances.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
 	.setName('sticker')
 	.setDescription('Sticker aléatoire de risibank'),
 	async execute(interaction) {
-		var res = await axios.request({
+		var res = await risibankAPI.request({
 			url: '/medias/random',
-			method: 'get',
-			baseURL: 'https://risibank.fr/api/v1',
-			headers: {'accept': 'application/json'},
 			params: {
 				only_one: true
 			},
