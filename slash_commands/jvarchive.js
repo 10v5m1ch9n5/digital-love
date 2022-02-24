@@ -27,9 +27,11 @@ module.exports = {
 				.replaceAll("«","")
 				.replaceAll("»","")
 				.replaceAll("/","")
+				.replaceAll("*","")
 				.replaceAll(":","")
 				.replaceAll("é","e")
 				.replaceAll("è","e")
+				.replaceAll("à","a")
 				.replaceAll("[","")
 				.replaceAll("]","")
 				.replaceAll("&","and")
@@ -41,12 +43,12 @@ module.exports = {
 				.replaceAll("  "," ")
 				.replaceAll("  "," ")
 				.replaceAll(" ","-")
-				.replace(/^-/g,"")
+				.replace(/^-/g,"");
 			if(/[A-Za-z0-9-]+/.test(titreUrl)) {
 				url = `https://jvarchive.com/forums/42-51-${topic.id}-1-0-1-0-${titreUrl}`
 				s += `[${topic.titre}](${url}) | ${topic.nb_messages}\n`;
 			} else {
-				console.log(titreUrl);
+				console.error(titreUrl);
 			}
 		}
 		interaction.reply(s);
