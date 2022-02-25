@@ -32,7 +32,7 @@ client.on('interactionCreate', async interaction => {
 });
 
 client.once('ready', (cli) => {
-	console.log(`Ready ! Logged id as ${cli.user.tag}`);
+	console.log(`Ready ! Logged in as ${cli.user.tag}`);
 });
 
 
