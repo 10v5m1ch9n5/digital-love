@@ -9,6 +9,10 @@ const {
 
 module.exports = {
 	command: (message, argv) => {
+		if(argv.length === 1) {
+			message.channel.send(`Mode d'emploi : \`--yt <url>\``);
+			return;
+		}
 
 		const channelsCollection = message.guild.channels.cache;
 		let destChan = undefined;
