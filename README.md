@@ -11,7 +11,7 @@ Il faut `git clone` le dépot puis créer un fichier `config.json` dans le dossi
 }
 ```
 
-### Comment connaître l'id de mon serveur de de mon bot ?
+### Comment connaître l'id de mon serveur et de mon bot ?
 
 Aller dans les paramètres utilisateur sur Discord, onglet "Avancés" puis activer le mode développeur.
 
