@@ -1,24 +1,18 @@
-const { risibankAPI } = require('./../axios-instances.js');
+const fs = require('fs');
 
 module.exports = {
 	command: async (message, argv) => {
-		if(argv.length === 1) {
-			message.channel.send(`Mode d'emploi : \`--risibank <mot-clé>\`\nPour avoir un sticker aléatoire, utilisez \`/sticker\``);
+		const helpMsg = `Mode d'emploi : \`--risibank <help|hot|top|new|random|search>\``;
+		const args = ['hot', 'top', 'new', 'random', 'search'];
+		const risibankFiles = fs.readdirSync('./commands/risibank')
+			.filter(file => file.endsWith('.js'));
+
+		if(argv.length === 1 || !args.includes(argv[1])) {
+			message.channel.send(helpMsg);
 			return;
 		}
-		const res = await risibankAPI.request({
-			url: '/medias/search',
-			params: {
-				query: argv[1],
-				category: 'sticker',
-				page: 1
-			}
-		});
-		const media = res.data.medias;
-		if (media.length === 0) {
-			message.channel.send('Aucun résultat :(');
-		} else {
-			message.channel.send(media[0].source_url);
-		}
+
+		const { command } = require(`./risibank/${argv[1]}.js`);
+		command(message, argv.slice(1));
 	}
 };
